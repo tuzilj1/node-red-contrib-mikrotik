@@ -46,10 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/node-red-contrib/node-red-contrib-mikrotik.git"
+    "url": "githttps://github.com/tuzilj1/node-red-contrib-mikrotik.git"
   },
   "bugs": {
-    "url": "https://github.com/node-red-contrib/node-red-contrib-mikrotik/issues"
+    "url": "https://github.com/tuzilj1/node-red-contrib-mikrotik/issues"
   },
-  "homepage": "https://github.com/node-red-contrib/node-red-contrib-mikrotik#readme"
+  "homepage": "https://github.com/tuzilj1/node-red-contrib-mikrotik#readme"
 }
