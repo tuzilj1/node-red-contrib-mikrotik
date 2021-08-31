@@ -28,7 +28,7 @@ export = function (RED: NodeAPI) {
 
         var connection: RouterOSAPI = null;
 
-        this.on('input', function (msg: NodeMessageInFlow & { command: any, success: boolean } & typeof deviceConfig) {
+        this.on('input', function (msg: NodeMessageInFlow & { command: any, success: boolean } & typeof deviceConfig, send, done) {
             // allow override of parameters through properties of the message
             let cfg = { ...deviceConfig, tls: null };
             if (msg.user) cfg.user = msg.user;
@@ -67,12 +67,25 @@ export = function (RED: NodeAPI) {
                         connection.close();
                     })
                     .catch((err) => {
-                        node.error('Error executing cmd[' + JSON.stringify(msg.command) + ']: ' + JSON.stringify(err));
+                        if (done) {
+                            // Node-RED 1.0 compatible
+                            done('Error executing cmd[' + JSON.stringify(msg.command) + ']: ' + JSON.stringify(err));
+                        } else {
+                            // Node-RED 0.x compatible
+                            node.error('Error executing cmd[' + JSON.stringify(msg.command) + ']: ' + JSON.stringify(err));
+                        }
                         connection.close();
                     });
             }
             catch (err) {
-                node.error('Error: ' + JSON.stringify(err));
+                if (done) {
+                    // Node-RED 1.0 compatible
+                    done('Error: ' + JSON.stringify(err));
+                } else {
+                    // Node-RED 0.x compatible
+                    node.error('Error: ' + JSON.stringify(err));
+                }
+                
             }
         });
 
